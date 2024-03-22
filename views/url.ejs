@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>url shortner</title>
+  </head>
+  <body>
+    <h2>hompage</h2>
+
+    <form action="/url/" method="post">
+      <label for="url">put your url</label>
+      <input type="url" name="url" id="url" />
+      <button type="submit">submit</button>
+    </form>
+
+    <% if (urls.length > 0) { %>
+    <table>
+      <thead>
+        <td>no.</td>
+        <td>short-id</td>
+        <td>redirected - URL</td>
+        <td>clicks</td>
+      </thead>
+      <tbody>
+        <% urls.forEach((url, index) => { %>
+        <tr>
+          <td><%= index+1 %></td>
+          <td><%= url.shortId %></td>
+          <td><%= url.redirectURL %></td>
+          <td><%= url.visitHistory.length %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } %>
+  </body>
+</html>
