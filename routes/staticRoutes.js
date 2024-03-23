@@ -4,10 +4,8 @@ const Url = require("../models/url");
 const router = expess.Router();
 
 router.get("/", (req, res) => {
-  Url.find({}).then((result) => {
-    return res.render("url", {
-      urls: result,
-    });
+  return res.render("url", {
+    urls: "",
   });
 });
 

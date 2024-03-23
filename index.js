@@ -27,7 +27,7 @@ app.use(cookieParser());
 
 // routes
 app.use("/url", urlRoute);
-app.use("/", checkAuth, staticRoute);
+app.use("/", staticRoute);
 app.use("/user", userRoute);
 
 app.listen(PORT, () => {
