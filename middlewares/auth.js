@@ -1,28 +1,28 @@
 const { getUser } = require("../services/auth");
 
-const strictToLogedInUser = (req, res, next) => {
-  const token = req.cookies?.token;
-  if (!token) {
-    return res.redirect("/login");
+function checkAuth(req, res, next) {
+  const tokenCookie = req.cookies?.token;
+  if (!tokenCookie) {
+    return next();
   }
-  const user = getUser(token);
-  if (!user) {
-    return res.redirect("/login");
-  }
-  req.user = user;
-  next();
-};
-
-const checkAuth = (req, res, next) => {
-  const tokenCookie = req?.cookies?.token;
-  req.user = null;
-  if (!tokenCookie) return next();
   const user = getUser(tokenCookie);
   req.user = user;
   next();
-};
+}
+
+function strictTo(role = ["ADMIN", "NORMAL"]) {
+  return function (req, res, next) {
+    if (!req.user) {
+      return res.redirect("/login");
+    }
+    if (!role.includes(req.user.role)) {
+      return res.end("unauthorised!!");
+    }
+    next();
+  };
+}
 
 module.exports = {
-  strictToLogedInUser,
   checkAuth,
+  strictTo,
 };

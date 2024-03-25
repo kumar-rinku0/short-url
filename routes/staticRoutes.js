@@ -1,11 +1,13 @@
 const expess = require("express");
 const Url = require("../models/url");
+const { strictTo, checkAuth } = require("../middlewares/auth");
 
 const router = expess.Router();
 
-router.get("/", (req, res) => {
+router.get("/", strictTo(["ADMIN"]), async (req, res) => {
+  const allurls = await Url.find({});
   return res.render("url", {
-    urls: "",
+    urls: allurls,
   });
 });
 

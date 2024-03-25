@@ -1,7 +1,7 @@
 const path = require("path");
 const expess = require("express");
 const connection = require("./connect");
-const { strictToLogedInUser, checkAuth } = require("./middlewares/auth");
+const { strictTo, checkAuth } = require("./middlewares/auth");
 
 // routes
 const urlRoute = require("./routes/url");
@@ -24,6 +24,7 @@ app.set("views", path.resolve("./views"));
 app.use(expess.json());
 app.use(expess.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(checkAuth);
 
 // routes
 app.use("/url", urlRoute);

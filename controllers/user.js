@@ -1,8 +1,5 @@
-const { v4: uuidv4 } = require("uuid");
-
 const userDetails = require("../models/user");
 const { setUser } = require("../services/auth");
-const cookieParser = require("cookie-parser");
 
 const handleSingUpUser = async (req, res) => {
   const { username, email, password } = req.body;

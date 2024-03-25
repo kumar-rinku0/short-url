@@ -49,7 +49,6 @@ const handleGetURLVisits = (req, res) => {
 
 // get request of get a user info using id!!
 const handleGetAllURLVisites = (req, res) => {
-  console.log(req);
   if (!req.user) {
     return res.redirect("/login");
   }
@@ -57,6 +56,21 @@ const handleGetAllURLVisites = (req, res) => {
     .then((result) => {
       return res.render("url", {
         urls: result,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const handleGetURLVisites = (req, res) => {
+  if (!req.user) {
+    return res.redirect("/login");
+  }
+  Url.find({ createdBy: req.user._id })
+    .then((result) => {
+      return res.render("url", {
+        urls: "",
       });
     })
     .catch((err) => {
@@ -78,4 +92,5 @@ module.exports = {
   handleGetURLVisits,
   handleGetAllURLVisites,
   deletmany,
+  handleGetURLVisites,
 };
