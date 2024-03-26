@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const path = require("path");
 const expess = require("express");
 const connection = require("./connect");
@@ -11,10 +13,9 @@ const cookieParser = require("cookie-parser");
 
 const app = expess();
 
-const PORT = 8001;
-connection(
-  "mongodb+srv://kumar:vQUgHNTjxNUrTlgv@alpha.9j5kqi2.mongodb.net/?retryWrites=true&w=majority&appName=alpha"
-);
+const PORT = process.env.PORT;
+const MONGO_URI = process.env.MONGO_URI;
+connection(MONGO_URI);
 
 // views
 app.set("view engine", "ejs");
